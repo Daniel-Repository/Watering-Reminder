@@ -2,6 +2,7 @@ package com.example.plantsneedwater;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +15,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView txtView1 = (TextView) findViewById(R.id.txtView1);
         Button btnChangeText = (Button) findViewById(R.id.btnChangeText);
         btnChangeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txtView1.setText("Wow that worked!");
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
             }
         });
     }

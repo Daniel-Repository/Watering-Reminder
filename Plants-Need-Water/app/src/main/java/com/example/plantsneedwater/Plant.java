@@ -13,6 +13,7 @@ public class Plant {
     private Date plantLastWatered;
     private Period plantNextWater;
 
+    //Constructor
     public Plant(String pName, String pDesc, Image pImage, Date pLastW, Period pNextW) {
         setPlantName(pName);
         setPlantDescription(pDesc);
