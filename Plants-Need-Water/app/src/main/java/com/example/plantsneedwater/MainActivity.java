@@ -1,27 +1,51 @@
 package com.example.plantsneedwater;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
+
+    //Uri uriNewImage;
+
+    /* Taking picture for further slice
+    ActivityResultLauncher<Uri> mTakePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    if(result == true){
+                        //Log.d("URI", uriNewImage.toString());
+                    }
+                }
+            });
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnChangeText = (Button) findViewById(R.id.btnChangeText);
-        btnChangeText.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabNewPlant = (FloatingActionButton) findViewById(R.id.fabCreatePlant);
+        fabNewPlant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivity(intent);
+                Intent intentCreatePlant = new Intent(getApplicationContext(), CreatePlant.class);
+                startActivity(intentCreatePlant);
+
             }
         });
     }
+
+
 }
