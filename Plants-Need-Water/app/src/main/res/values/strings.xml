@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Plants Need Water</string>
+
+    <string name="watering_period_input">
+        Should be watered every…
+    </string>
+
+    <string name="plant_name_input_hint">Plant Name</string>
+
+    <string-array name="period_array">
+        <item>Hour(s)</item>
+        <item>Day(s)</item>
+        <item>Week(s)</item>
+    </string-array>
+
 </resources>
