@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">Plants Need Water</string>
 
-    <string name="watering_period_input">
-        Should be watered every…
-    </string>
+    <string name="watering_period_input">Should be watered every…</string>
 
     <string name="plant_name_input_hint">Plant Name</string>
+
+    <string name="plant_image_input">Add a picture of your plant!</string>
+
+    <string name="click_here">Click Here</string>
+
+    <string name="create_plant_heading">Create Plant</string>
 
     <string-array name="period_array">
         <item>Hour(s)</item>
