@@ -16,12 +16,12 @@
 
         <!-- Cancel -->
         <ImageButton
-            android:id="@+id/ivCancel"
+            android:id="@+id/ibCancel"
             android:padding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_close_24"
-            android:background="transparent"
+            android:background="@color/transparent"
             android:tint="@color/black"/>
 
         <!-- Heading -->
@@ -30,6 +30,7 @@
             android:layout_margin="8dp"
             android:layout_gravity="center"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -39,9 +40,9 @@
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/ivSave"
+                android:id="@+id/ibSave"
                 android:padding="8dp"
-                android:background="transparent"
+                android:background="@color/transparent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
@@ -61,6 +62,7 @@
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/llHeader">
 
+        <!-- Layout containing image views & inputs -->
         <LinearLayout
             android:id="@+id/llCameraField"
             android:layout_margin="16dp"
@@ -85,6 +87,7 @@
 
         </LinearLayout>
 
+        <!-- Layout containing text views & inputs -->
         <LinearLayout
             android:id="@+id/llFields"
             android:layout_marginRight="32dp"
@@ -98,14 +101,16 @@
                 android:hint="@string/plant_name_input_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
                 android:paddingLeft="-10dp"
                 app:boxBackgroundColor="@null">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPlantName"
+                    android:textSize="18sp"
                     android:layout_width="match_parent"
-                    android:textSize="16sp"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +119,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginLeft="16dp"
                 android:textSize="14sp"
@@ -122,7 +127,9 @@
 
             <!-- Watering Period input -->
             <LinearLayout
-                android:layout_margin="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -143,6 +150,27 @@
                     android:layout_weight="1"/>
 
             </LinearLayout>
+
+            <!-- Last Watered Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="14sp"
+                android:text="@string/last_watered_prompt"/>
+
+            <!-- Last Watered Input -->
+            <EditText
+                android:id="@+id/etEnterDate"
+                android:focusable="false"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_date"/>
 
         </LinearLayout>
 
