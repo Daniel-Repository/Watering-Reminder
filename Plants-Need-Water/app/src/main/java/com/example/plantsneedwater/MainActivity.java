@@ -17,20 +17,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Uri uriNewImage;
-
-    /* Taking picture for further slice
-    ActivityResultLauncher<Uri> mTakePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(),
-            new ActivityResultCallback<Boolean>() {
-                @Override
-                public void onActivityResult(Boolean result) {
-                    if(result == true){
-                        //Log.d("URI", uriNewImage.toString());
-                    }
-                }
-            });
-    */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentCreatePlant = new Intent(getApplicationContext(), CreatePlant.class);
                 startActivity(intentCreatePlant);
-
             }
         });
     }

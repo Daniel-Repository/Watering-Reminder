@@ -1,5 +1,6 @@
 package com.example.plantsneedwater;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 
 import java.time.Period;
@@ -8,15 +9,15 @@ import java.util.Date;
 public class Plant {
 
     private String plantName;
-    private String plantDescription;
-    private Image plantImage;
+    //private String plantDescription;
+    private Bitmap plantImage;
     private Date plantLastWatered;
     private Period plantNextWater;
 
     //Constructor
-    public Plant(String pName, String pDesc, Image pImage, Date pLastW, Period pNextW) {
+    public Plant(String pName, Bitmap pImage, Date pLastW, Period pNextW) {
         setPlantName(pName);
-        setPlantDescription(pDesc);
+        //setPlantDescription(pDesc);
         setPlantImage(pImage);
         setPlantLastWatered(pLastW);
         setPlantNextWater(pNextW);
@@ -25,9 +26,9 @@ public class Plant {
     //Getters
     public String getPlantName() { return plantName; }
 
-    public String getPlantDescription() { return plantDescription; }
+    //public String getPlantDescription() { return plantDescription; }
 
-    public Image getPlantImage() { return plantImage; }
+    public Bitmap getPlantImage() { return plantImage; }
 
     public Date getPlantLastWatered() { return plantLastWatered; }
 
@@ -36,9 +37,9 @@ public class Plant {
     //Setters
     public void setPlantName(String plantName) { this.plantName = plantName; }
 
-    public void setPlantDescription(String plantDescription) { this.plantDescription = plantDescription; }
+    //public void setPlantDescription(String plantDescription) { this.plantDescription = plantDescription; }
 
-    public void setPlantImage(Image plantImage) { this.plantImage = plantImage; }
+    public void setPlantImage(Bitmap plantImage) { this.plantImage = plantImage; }
 
     public void setPlantLastWatered(Date plantLastWatered) { this.plantLastWatered = plantLastWatered; }
 

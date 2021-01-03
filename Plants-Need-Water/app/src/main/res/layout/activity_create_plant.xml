@@ -65,7 +65,11 @@
         <!-- Layout containing image views & inputs -->
         <LinearLayout
             android:id="@+id/llCameraField"
-            android:layout_margin="16dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
