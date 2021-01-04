@@ -167,7 +167,7 @@
 
             <!-- Last Watered Input -->
             <EditText
-                android:id="@+id/etEnterDate"
+                android:id="@+id/etLastWateredDate"
                 android:focusable="false"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="16dp"

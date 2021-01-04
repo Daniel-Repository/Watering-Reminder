@@ -16,9 +16,9 @@
     <string name="enter_date">Enter Date</string>
 
     <string-array name="period_array">
-        <item>Hour(s)</item>
         <item>Day(s)</item>
         <item>Week(s)</item>
+        <item>Month(s)</item>
     </string-array>
 
 </resources>
