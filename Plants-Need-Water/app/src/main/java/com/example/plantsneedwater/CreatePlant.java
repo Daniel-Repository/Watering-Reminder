@@ -5,7 +5,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.core.content.FileProvider;
 
 
 import android.app.Activity;
@@ -14,8 +14,10 @@ import android.content.Intent;
 
 import android.graphics.Bitmap;
 
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputType;
 
@@ -27,9 +29,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -47,7 +52,9 @@ public class CreatePlant extends AppCompatActivity {
     EditText etPeriod;
     EditText etLastWateredDate;
     Bitmap imageBitmap;
+    String imageFilePath;
     Spinner spinPeriod;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -62,45 +69,28 @@ public class CreatePlant extends AppCompatActivity {
         //USER SELECTS CAMERA AREA TO ADD NEW PHOTO
         ivPhoto = findViewById(R.id.ivPhoto);
         LinearLayout llCameraField = findViewById(R.id.llCameraField);
-
         llCameraField.setOnClickListener(v -> {
-            Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            cameraResultLauncher.launch(takePhotoIntent);
+            takePlantPhoto();
         });
 
-        //Populate spinPeriod with values from our string array 'period_array'
+        //POPULATE SPINPERIOD WITH VALUES FROM OUR STRING ARRAY 'PERIOD_ARRAY'
         spinPeriod = findViewById(R.id.spinPeriod);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.period_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPeriod.setAdapter(adapter);
 
-        //Open date picker dialog (Calendar) when select this edit text
+        //OPEN DATE PICKER DIALOG (CALENDAR) WHEN THIS EDIT TEXT IS SELECTED
         etLastWateredDate.setOnClickListener(v -> {
-            int day = cldr.get(Calendar.DAY_OF_MONTH);
-            int month = cldr.get(Calendar.MONTH);
-            int year = cldr.get(Calendar.YEAR);
-            //Date picker dialog
-            pickerDate = new DatePickerDialog(CreatePlant.this,
-                    (view, year1, monthOfYear, dayOfMonth) -> etLastWateredDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1), year, month, day);
-            pickerDate.getDatePicker().setMaxDate(System.currentTimeMillis());
-            pickerDate.show();
-
-            pickerDate.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    cldr.set(year, month, dayOfMonth);
-                    etLastWateredDate.setText(dayOfMonth + "/" + (month +1) + "/" + year);
-                }
-            });
+            openDatePicker();
         });
 
-        //When the SAVE button (in header) is select
+        //WHEN THE SAVE BUTTON (IN HEADER) IS SELECTED
         ImageButton ibSave = findViewById(R.id.ibSave);
         ibSave.setOnClickListener(v -> {
             savePlant();
         });
 
-        //When the CANCEL button (in header) is selected
+        //WHEN THE CANCEL BUTTON (IN HEADER) IS SELECTED
         ImageButton ibCancel = findViewById(R.id.ibCancel);
         ibCancel.setOnClickListener(v -> {
             Intent intentMainAct = new Intent(getApplicationContext(), MainActivity.class);
@@ -108,16 +98,25 @@ public class CreatePlant extends AppCompatActivity {
         });
     }
 
-    //CAMERA -> Launches and gets result (photo)
-    ActivityResultLauncher<Intent> cameraResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK) {
-            Intent data = result.getData();
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-            ivPhoto.setImageBitmap(imageBitmap);
-        }
-    });
+    //Opens the date picker
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void openDatePicker() {
+        int day = cldr.get(Calendar.DAY_OF_MONTH);
+        int month = cldr.get(Calendar.MONTH);
+        int year = cldr.get(Calendar.YEAR);
+        //Date picker dialog
+        pickerDate = new DatePickerDialog(CreatePlant.this,
+                (view, year1, monthOfYear, dayOfMonth) -> etLastWateredDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1), year, month, day);
+        pickerDate.getDatePicker().setMaxDate(System.currentTimeMillis());
+        pickerDate.show();
 
+        pickerDate.setOnDateSetListener((view, year12, month1, dayOfMonth) -> {
+            cldr.set(year12, month1, dayOfMonth);
+            etLastWateredDate.setText(dayOfMonth + "/" + (month1 +1) + "/" + year12);
+        });
+    }
+
+    //Called when the learner clicks the 'tick' (Done/Save) button.
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void savePlant() {
         boolean canSave = true;
@@ -144,6 +143,7 @@ public class CreatePlant extends AppCompatActivity {
             canSave = true;
         }
 
+        //Creates a new Plant object with the inputted details.
         if (canSave) {
             String pName = etPlantName.getText().toString();
             Date calendarDate = cldr.getTime();
@@ -152,6 +152,7 @@ public class CreatePlant extends AppCompatActivity {
         }
     }
 
+    //Calculates the period to the next water in days
     private int getPeriodIncrement() {
         int periodIncrement = 0;
         int periodValue = Integer.parseInt(etPeriod.getText().toString());
@@ -168,6 +169,56 @@ public class CreatePlant extends AppCompatActivity {
                 break;
         }
         return periodIncrement;
+    }
+
+    //TAKE PHOTO
+    private void takePlantPhoto() {
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photo = null;
+
+        try {
+            photo = createImageFile();
+        } catch (IOException ex) {
+            Toast.makeText(this, "Error creating image file.", Toast.LENGTH_SHORT).show();
+        }
+
+        if (photo != null) {
+            Uri photoURI = FileProvider.getUriForFile(this, "com.example.plantsneedwater.provider", photo);
+            takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            startActivityForResult(takePhotoIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    //Gets the result of our camera activity (image) and sets it to our ImageView
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            try {
+                File file = new File(imageFilePath);
+                imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
+                ivPhoto.setImageBitmap(imageBitmap);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //Creates a proper image file and returns it
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "PLANT_IMG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",   /* suffix */
+                storageDir      /* directory */
+        );
+
+        imageFilePath = image.getAbsolutePath();
+        return image;
     }
 
 }
