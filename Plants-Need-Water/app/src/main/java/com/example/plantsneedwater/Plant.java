@@ -12,6 +12,7 @@ import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class Plant {
 
 
@@ -23,6 +24,7 @@ public class Plant {
     private Period plantNextWater;
 
     Calendar calendar = Calendar.getInstance();
+    LocalDate today = LocalDate.now();
 
     //Constructor
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -32,7 +34,7 @@ public class Plant {
         setPlantLastWatered(pLastW);
         setPlantPeriodIncrement(pPeriodIncrement);
 
-        setPlantNextWater(Period.between(pLastW, pLastW.plusDays(pPeriodIncrement)));
+        setPlantNextWater(Period.between(today, pLastW.plusDays(pPeriodIncrement)));
         Log.d("Plant Details", pName + " " + pLastW.toString() + "  " + plantNextWater.toString());
     }
 
