@@ -77,7 +77,7 @@
             <ImageView
                 android:id="@+id/ivPhoto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:src="@drawable/ic_baseline_add_a_photo_24"/>
 
             <TextView
