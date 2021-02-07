@@ -32,6 +32,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.io.IOException;
@@ -197,12 +198,27 @@ public class CreatePlant extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        File file = new File(imageFilePath);
+
+        //Result of the initial image taken --> We go straight to cropping this image
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             try {
-                File file = new File(imageFilePath);
-                imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
-                ivPhoto.setImageBitmap(imageBitmap);
+                CropImage.activity(Uri.fromFile(file))
+                        .setAspectRatio(1,1)
+                        .start(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
+        //Result of cropping the image
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            try {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                Uri resultUri = result.getUri();
+                imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
+                ivPhoto.setImageBitmap(imageBitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
