@@ -149,6 +149,9 @@ public class CreatePlant extends AppCompatActivity {
             Date calendarDate = cldr.getTime();
             LocalDate pLastWatered  = calendarDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Plant newPlant = new Plant(pName, imageBitmap, pLastWatered, getPeriodIncrement());
+            PlantDataHolder.plantList.add(newPlant);
+            Intent intentMainAct = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intentMainAct);
         }
     }
 
@@ -178,6 +181,7 @@ public class CreatePlant extends AppCompatActivity {
 
         try {
             photo = createImageFile();
+
         } catch (IOException ex) {
             Toast.makeText(this, "Error creating image file.", Toast.LENGTH_SHORT).show();
         }

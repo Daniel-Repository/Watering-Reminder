@@ -9,15 +9,16 @@ import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Plant {
 
 
     private String plantName;
-    //private String plantDescription;
     private Bitmap plantImage;
     private LocalDate plantLastWatered;
     private int plantPeriodIncrement;
@@ -38,6 +39,7 @@ public class Plant {
         Log.d("Plant Details", pName + " " + pLastW.toString() + "  " + plantNextWater.toString());
     }
 
+    public Plant() { }
 
     //Getters
     public String getPlantName() { return plantName; }
