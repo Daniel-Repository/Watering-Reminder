@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerViewAdapter adapter;
     List<Plant> plantList;
+    int recyclerColumns = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         plantList = PlantDataHolder.plantList;
-        setRecycler();
+        setRecycler(recyclerColumns);
 
         //Add new plant FAB
         FloatingActionButton fabNewPlant = (FloatingActionButton) findViewById(R.id.fabCreatePlant);
@@ -43,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setRecycler(){
+    private void setRecycler(int recyclerColumns){
         RecyclerView recyclerView = findViewById(R.id.rvPlants);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, recyclerColumns));
 
         if (plantList == null) {
             //recyclerView.setVisibility(View.GONE);
