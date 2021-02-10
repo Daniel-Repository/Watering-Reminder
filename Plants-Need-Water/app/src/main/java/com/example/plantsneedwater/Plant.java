@@ -37,7 +37,6 @@ public class Plant {
 
         setPlantNextWater(Period.between(today, pLastW.plusDays(pPeriodIncrement)));
         setPlantNextWaterString(plantNextWater);
-        //Log.d("Plant Details", pName + " " + pLastW.toString() + "  " + plantNextWater.toString());
     }
 
     public Plant() { }
@@ -74,13 +73,13 @@ public class Plant {
         int days = plantNextWater.getDays();
 
         if (months == 0) {
-            plantNextWaterString = days + " Days";
+            plantNextWaterString = days + " Days until next water";
         }
         else if (months == 1) {
-            plantNextWaterString = months + " Month, " + days + " Days";
+            plantNextWaterString = months + " Month, " + days + " Days until next water";
         }
         else {
-            plantNextWaterString = months + " Months, " + days + " Days";
+            plantNextWaterString = months + " Months, " + days + " Days until next water";
         }
     }
 
