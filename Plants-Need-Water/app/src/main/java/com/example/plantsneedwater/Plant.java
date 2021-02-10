@@ -76,6 +76,9 @@ public class Plant {
         if (months == 0) {
             plantNextWaterString = days + " Days";
         }
+        else if (months == 1) {
+            plantNextWaterString = months + " Month, " + days + " Days";
+        }
         else {
             plantNextWaterString = months + " Months, " + days + " Days";
         }
