@@ -18,7 +18,7 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
     private List<Plant> mData = PlantDataHolder.plantList;
-    private LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     //Data is passed into the constructor
@@ -38,12 +38,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Bitmap pimg = mData.get(position).getPlantImage();
+        Bitmap pImg = mData.get(position).getPlantImage();
         String pName = mData.get(position).getPlantName();
         String pLastWatered = mData.get(position).getPlantLastWatered().toString();
-        String pNextWater = mData.get(position).getPlantNextWater().toString();
+        String pNextWater = mData.get(position).getPlantNextWaterString();
 
-        holder.plantImage.setImageBitmap(pimg);
+        holder.plantImage.setImageBitmap(pImg);
         holder.plantName.setText(pName);
         holder.plantLastWatered.setText(pLastWatered);
         holder.plantNextWater.setText(pNextWater);

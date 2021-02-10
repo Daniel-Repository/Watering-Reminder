@@ -23,8 +23,8 @@ public class Plant {
     private LocalDate plantLastWatered;
     private int plantPeriodIncrement;
     private Period plantNextWater;
+    private String plantNextWaterString;
 
-    Calendar calendar = Calendar.getInstance();
     LocalDate today = LocalDate.now();
 
     //Constructor
@@ -36,7 +36,8 @@ public class Plant {
         setPlantPeriodIncrement(pPeriodIncrement);
 
         setPlantNextWater(Period.between(today, pLastW.plusDays(pPeriodIncrement)));
-        Log.d("Plant Details", pName + " " + pLastW.toString() + "  " + plantNextWater.toString());
+        setPlantNextWaterString(plantNextWater);
+        //Log.d("Plant Details", pName + " " + pLastW.toString() + "  " + plantNextWater.toString());
     }
 
     public Plant() { }
@@ -52,6 +53,8 @@ public class Plant {
 
     public Period getPlantNextWater() { return plantNextWater; }
 
+    public String getPlantNextWaterString() { return plantNextWaterString; }
+
 
 
     //Setters
@@ -64,5 +67,20 @@ public class Plant {
     public void setPlantPeriodIncrement(int plantPeriodIncrement) { this.plantPeriodIncrement = plantPeriodIncrement; }
 
     public void setPlantNextWater(Period plantNextWater) { this.plantNextWater = plantNextWater; }
+
+    public void setPlantNextWaterString(Period plantNextWater) {
+
+        int months = plantNextWater.getMonths();
+        int days = plantNextWater.getDays();
+
+        if (months == 0) {
+            plantNextWaterString = days + " Days";
+        }
+        else {
+            plantNextWaterString = months + " Months, " + days + " Days";
+        }
+    }
+
+
 
 }
