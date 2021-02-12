@@ -2,17 +2,20 @@ package com.example.plantsneedwater;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.example.plantsneedwater.R;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
@@ -20,6 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<Plant> mData = PlantDataHolder.plantList;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+
 
     //Data is passed into the constructor
     RecyclerViewAdapter(Context context, List<Plant> data) {
@@ -40,10 +44,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         Bitmap pImg = mData.get(position).getPlantImage();
         String pName = mData.get(position).getPlantName();
-        String pLastWatered = mData.get(position).getPlantLastWatered().toString();
+        String pLastWatered = "Last watered on the " + mData.get(position).getPlantLastWatered().format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
         String pNextWater = mData.get(position).getPlantNextWaterString();
 
-        holder.plantImage.setImageBitmap(pImg);
+        if(pImg != null) {
+            holder.plantImage.setImageBitmap(pImg);
+        }
+
         holder.plantName.setText(pName);
         holder.plantLastWatered.setText(pLastWatered);
         holder.plantNextWater.setText(pNextWater);
@@ -54,7 +61,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return mData.size();
     }
-
 
     //Stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerViewAdapter adapter;
     List<Plant> plantList;
-    int recyclerColumns = 2;
+    int recyclerColumns = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
