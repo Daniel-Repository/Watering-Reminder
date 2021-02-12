@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_check_24"
-                android:tint="@color/link_blue"/>
+                android:tint="@color/primaryDarkColor"/>
 
         </RelativeLayout>
 
@@ -81,7 +81,7 @@
 
             <TextView
                 android:text="@string/plant_image_input"
-                android:textColor="@color/link_blue"
+                android:textColor="@color/primaryDarkColor"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:textSize="16sp"
