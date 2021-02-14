@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp">
+        android:layout_margin="12dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,41 +23,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/defaultplantimage"/>
+                android:src="@drawable/defaultplantimage" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="horizontal">
 
-                <!-- Title, secondary and supporting text -->
-                <TextView
-                    android:id="@+id/plantName"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Freddy"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/plantNextWater"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="1 Month, 9 Days until next water"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary"/>
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:id="@+id/plantName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Freddy"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
 
-                <TextView
-                    android:id="@+id/plantLastWatered"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Last watered on the 05 March 2021"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textSize="12sp"
-                    android:textColor="?android:attr/textColorSecondary"/>
+                    <TextView
+                        android:id="@+id/plantNextWater"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="1 Month, 9 Days until next water"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?android:attr/textColorSecondary" />
 
+                    <TextView
+                        android:id="@+id/plantLastWatered"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Last watered on the 05 February 2021"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnWaterPlant"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="bottom|end"
+                        app:icon="@drawable/water_1_"
+                        app:iconSize="34dp"
+                        app:iconPadding="0dp"
+                        app:iconGravity="textStart"
+                        app:iconTint="@color/white"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:backgroundTint="@color/waterColor" />
+                </FrameLayout>
             </LinearLayout>
 
         </LinearLayout>

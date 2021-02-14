@@ -1,26 +1,22 @@
 package com.example.plantsneedwater;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
+
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     RecyclerViewAdapter adapter;
     List<Plant> plantList;
@@ -34,17 +30,25 @@ public class MainActivity extends AppCompatActivity {
         plantList = PlantDataHolder.plantList;
         setRecycler(recyclerColumns);
 
-        //Add new plant FAB
-        FloatingActionButton fabNewPlant = (FloatingActionButton) findViewById(R.id.fabCreatePlant);
-        fabNewPlant.setOnClickListener(new View.OnClickListener() {
+        Toolbar myToolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(myToolbar);
+        myToolbar.showOverflowMenu();
+        myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intentCreatePlant = new Intent(getApplicationContext(), CreatePlant.class);
-                startActivity(intentCreatePlant);
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.addPlant:
+                        Intent intentCreatePlant = new Intent(getApplicationContext(), CreatePlant.class);
+                        startActivity(intentCreatePlant);
+                        break;
+                }
+                return true;
             }
         });
+
     }
 
+    //Sets up our recyclerview
     private void setRecycler(int recyclerColumns){
         RecyclerView recyclerView = findViewById(R.id.rvPlants);
         recyclerView.setLayoutManager(new GridLayoutManager(this, recyclerColumns));
@@ -58,4 +62,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_app_bar, menu);
+        return true;
+    }
+
 }
