@@ -20,7 +20,6 @@ import java.util.List;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Plant {
 
-
     private String plantName;
     private Bitmap plantImage;
     private LocalDate plantLastWatered;
@@ -68,7 +67,9 @@ public class Plant {
 
     public void setPlantPeriodIncrement(int plantPeriodIncrement) { this.plantPeriodIncrement = plantPeriodIncrement; }
 
-    public void setPlantNextWater(Period plantNextWater) { this.plantNextWater = plantNextWater; }
+    public void setPlantNextWater(Period plantNextWater) {
+        this.plantNextWater = plantNextWater;
+    }
 
     public void setPlantNextWaterString(Period plantNextWater) {
 
@@ -87,5 +88,10 @@ public class Plant {
     }
 
 
+    public void waterPlant() {
+        setPlantLastWatered(today);
+        setPlantNextWater(Period.between(today, plantLastWatered.plusDays(plantPeriodIncrement)));
+        setPlantNextWaterString(getPlantNextWater());
+    }
 
 }

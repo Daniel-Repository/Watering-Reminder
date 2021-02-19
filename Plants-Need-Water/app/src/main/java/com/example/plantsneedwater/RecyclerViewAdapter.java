@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.plantsneedwater.R;
+import com.google.android.material.button.MaterialButton;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -20,10 +21,9 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
-    private List<Plant> mData = PlantDataHolder.plantList;
+    private List<Plant> mData;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-
 
     //Data is passed into the constructor
     RecyclerViewAdapter(Context context, List<Plant> data) {
@@ -38,7 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new ViewHolder(view);
     }
 
-    //Binds the data to the TextView in each row
+    //Binds the data to the component in each row
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -76,6 +76,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             plantLastWatered = itemView.findViewById(R.id.plantLastWatered);
             plantNextWater = itemView.findViewById(R.id.plantNextWater);
             itemView.setOnClickListener(this);
+
+            itemView.findViewById(R.id.btnWaterPlant).setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    Plant plant = mData.get(pos);
+                    plant.waterPlant();
+                    notifyDataSetChanged();
+                }
+            });
         }
 
         @Override

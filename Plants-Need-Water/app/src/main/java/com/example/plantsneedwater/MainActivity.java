@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
         });
-
     }
 
     //Sets up our recyclerview
@@ -54,15 +53,14 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setLayoutManager(new GridLayoutManager(this, recyclerColumns));
 
         if (plantList == null) {
-            //recyclerView.setVisibility(View.GONE);
+            //Should show an empty state. NEED TO DO!
         } else {
             adapter = new RecyclerViewAdapter(this, plantList);
             //adapter.setClickListener(this);
             recyclerView.setAdapter(adapter);
         }
-
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_app_bar, menu);
