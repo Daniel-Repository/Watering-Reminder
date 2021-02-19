@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity  {
             recyclerView.setAdapter(adapter);
         }
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_app_bar, menu);

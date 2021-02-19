@@ -67,20 +67,21 @@ public class Plant {
 
     public void setPlantPeriodIncrement(int plantPeriodIncrement) { this.plantPeriodIncrement = plantPeriodIncrement; }
 
-    public void setPlantNextWater(Period plantNextWater) {
-        this.plantNextWater = plantNextWater;
-    }
+    public void setPlantNextWater(Period plantNextWater) { this.plantNextWater = plantNextWater; }
 
     public void setPlantNextWaterString(Period plantNextWater) {
 
         int months = plantNextWater.getMonths();
         int days = plantNextWater.getDays();
 
-        if (months == 0) {
+        if (months == 0 && days >= 1) {
             plantNextWaterString = days + " Days until next water";
         }
         else if (months == 1) {
             plantNextWaterString = months + " Month, " + days + " Days until next water";
+        }
+        else if (months == 0 && days <= 0) {
+            plantNextWaterString = "Water " + getPlantName() + " today!";
         }
         else {
             plantNextWaterString = months + " Months, " + days + " Days until next water";
