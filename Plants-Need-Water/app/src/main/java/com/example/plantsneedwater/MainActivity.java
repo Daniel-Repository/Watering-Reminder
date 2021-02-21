@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity  {
         Toolbar myToolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(myToolbar);
         myToolbar.showOverflowMenu();
+        getSupportActionBar().setTitle("Planted ");
         myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
