@@ -81,9 +81,15 @@ public class MainActivity extends AppCompatActivity  {
     private void loadPlants() {
         SharedPreferences sharedPref = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         Gson gson = new Gson();
+//        SharedPreferences.Editor editor = sharedPref.edit();
+//        editor.clear();
+//        editor.commit();
         String json  = sharedPref.getString("plant list", null);
         Type type = new TypeToken<ArrayList<Plant>>() {}.getType();
         PlantDataHolder.plantList = gson.fromJson(json, type);
+        if (PlantDataHolder.plantList == null){
+            PlantDataHolder.plantList = new ArrayList<>();
+        }
     }
 
 }

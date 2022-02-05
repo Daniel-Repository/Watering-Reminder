@@ -44,7 +44,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         Bitmap pImg = mData.get(position).getPlantImage();
         String pName = mData.get(position).getPlantName();
-        String pLastWatered = "Last watered on the " + mData.get(position).getPlantLastWatered().format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+        mData.get(position).setPlantLastWateredDate();
+        String pLastWatered = "Last watered on the " + mData.get(position).getPlantLastWateredDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
         String pNextWater = mData.get(position).getPlantNextWaterString();
 
         if(pImg != null) {

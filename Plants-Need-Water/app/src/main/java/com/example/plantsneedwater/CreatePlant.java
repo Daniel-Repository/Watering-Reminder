@@ -150,7 +150,7 @@ public class CreatePlant extends AppCompatActivity {
         if (canSave) {
             String pName = etPlantName.getText().toString();
             Date calendarDate = cldr.getTime();
-            LocalDate pLastWatered  = calendarDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String pLastWatered  = calendarDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
             Plant newPlant = new Plant(pName, imageBitmap, pLastWatered, getPeriodIncrement());
             PlantDataHolder.plantList.add(newPlant);
 

@@ -12,32 +12,38 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Plant {
 
     private String plantName;
     private Bitmap plantImage;
-    private LocalDate plantLastWatered;
+    private String plantLastWatered;
     private int plantPeriodIncrement;
     private Period plantNextWater;
     private String plantNextWaterString;
+
+    private LocalDate plantLastWateredDate;
 
     LocalDate today = LocalDate.now();
 
     //Constructor
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Plant(String pName, Bitmap pImage, LocalDate pLastW, int pPeriodIncrement) {
+    public Plant(String pName, Bitmap pImage, String pLastW, int pPeriodIncrement) {
         setPlantName(pName);
         setPlantImage(pImage);
         setPlantLastWatered(pLastW);
         setPlantPeriodIncrement(pPeriodIncrement);
 
-        setPlantNextWater(Period.between(today, pLastW.plusDays(pPeriodIncrement)));
+        setPlantLastWateredDate();
+
+        setPlantNextWater(Period.between(today, plantLastWateredDate.plusDays(pPeriodIncrement)));
         setPlantNextWaterString(plantNextWater);
     }
 
@@ -48,7 +54,7 @@ public class Plant {
 
     public Bitmap getPlantImage() { return plantImage; }
 
-    public LocalDate getPlantLastWatered() { return plantLastWatered; }
+    public String getPlantLastWatered() { return plantLastWatered; }
 
     public int getPlantPeriodIncrement() { return plantPeriodIncrement; }
 
@@ -56,14 +62,16 @@ public class Plant {
 
     public String getPlantNextWaterString() { return plantNextWaterString; }
 
-
+    public LocalDate getPlantLastWateredDate() {
+        return plantLastWateredDate;
+    }
 
     //Setters
     public void setPlantName(String plantName) { this.plantName = plantName; }
 
     public void setPlantImage(Bitmap plantImage) { this.plantImage = plantImage; }
 
-    public void setPlantLastWatered(LocalDate plantLastWatered) { this.plantLastWatered = plantLastWatered; }
+    public void setPlantLastWatered(String plantLastWatered) { this.plantLastWatered = plantLastWatered; }
 
     public void setPlantPeriodIncrement(int plantPeriodIncrement) { this.plantPeriodIncrement = plantPeriodIncrement; }
 
@@ -88,10 +96,16 @@ public class Plant {
         }
     }
 
+    public void setPlantLastWateredDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        LocalDate date = LocalDate.parse(getPlantLastWatered(), formatter);
+        plantLastWateredDate = date;
+    }
 
     public void waterPlant() {
-        setPlantLastWatered(today);
-        setPlantNextWater(Period.between(today, plantLastWatered.plusDays(plantPeriodIncrement)));
+        setPlantLastWatered(LocalDate.now().toString());
+        setPlantLastWateredDate();
+        setPlantNextWater(Period.between(LocalDate.now(), getPlantLastWateredDate().plusDays(plantPeriodIncrement)));
         setPlantNextWaterString(getPlantNextWater());
     }
 
