@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
 import android.net.Uri;
@@ -151,6 +152,7 @@ public class CreatePlant extends AppCompatActivity {
             LocalDate pLastWatered  = calendarDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Plant newPlant = new Plant(pName, imageBitmap, pLastWatered, getPeriodIncrement());
             PlantDataHolder.plantList.add(newPlant);
+
             Intent intentMainAct = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intentMainAct);
         }

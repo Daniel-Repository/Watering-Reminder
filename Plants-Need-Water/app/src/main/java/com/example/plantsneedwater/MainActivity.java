@@ -1,5 +1,6 @@
 package com.example.plantsneedwater;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity  {
 
     RecyclerViewAdapter adapter;
     List<Plant> plantList;
-    int recyclerColumns = 1;
+    int recyclerColumns = 1; //How many columns of plants do we want displayed?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity  {
 
         Toolbar myToolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(myToolbar);
+        myToolbar.setBackgroundColor(Color.parseColor("#FFFFFF"));
         myToolbar.showOverflowMenu();
         getSupportActionBar().setTitle("Planted ");
         myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
