@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,13 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
 
     RecyclerViewAdapter adapter;
-    List<Plant> plantList;
     int recyclerColumns = 1; //How many columns of plants do we want displayed?
 
     @Override
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        plantList = PlantDataHolder.plantList;
+        loadPlants();
         setRecycler(recyclerColumns);
 
         Toolbar myToolbar = findViewById(R.id.myToolbar);
@@ -57,10 +61,10 @@ public class MainActivity extends AppCompatActivity  {
         RecyclerView recyclerView = findViewById(R.id.rvPlants);
         recyclerView.setLayoutManager(new GridLayoutManager(this, recyclerColumns));
 
-        if (plantList == null) {
+        if (PlantDataHolder.plantList == null) {
             //Should show an empty state. NEED TO DO!
         } else {
-            adapter = new RecyclerViewAdapter(this, plantList);
+            adapter = new RecyclerViewAdapter(this, PlantDataHolder.plantList);
             //adapter.setClickListener(this);
             recyclerView.setAdapter(adapter);
         }
@@ -70,6 +74,16 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_app_bar, menu);
         return true;
+    }
+
+
+    //Load SharedPreferences
+    private void loadPlants() {
+        SharedPreferences sharedPref = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json  = sharedPref.getString("plant list", null);
+        Type type = new TypeToken<ArrayList<Plant>>() {}.getType();
+        PlantDataHolder.plantList = gson.fromJson(json, type);
     }
 
 }

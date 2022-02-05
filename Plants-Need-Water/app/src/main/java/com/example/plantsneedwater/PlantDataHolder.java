@@ -19,5 +19,4 @@ public class PlantDataHolder {
         }
         return instance;
     }
-
 }

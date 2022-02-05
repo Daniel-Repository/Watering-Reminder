@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -152,6 +153,14 @@ public class CreatePlant extends AppCompatActivity {
             LocalDate pLastWatered  = calendarDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Plant newPlant = new Plant(pName, imageBitmap, pLastWatered, getPeriodIncrement());
             PlantDataHolder.plantList.add(newPlant);
+
+            //Save update to Shared Preferences
+            SharedPreferences sharedPref = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(PlantDataHolder.plantList);
+            editor.putString("plant list", json);
+            editor.apply();
 
             Intent intentMainAct = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intentMainAct);
