@@ -3,6 +3,7 @@ package com.example.plantsneedwater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class PlantSingleView extends AppCompatActivity {
                     case R.id.backHome:
                         Intent intentCreatePlant = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intentCreatePlant);
+                        overridePendingTransition(R.anim.anim_stay_put, R.anim.anim_center_to_right);
                         break;
                 }
                 return true;

@@ -99,8 +99,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     int pos = getAdapterPosition();
                     Plant plant = mData.get(pos);
                     Intent intentCreatePlant = new Intent(itemView.getContext(), PlantSingleView.class);
-                    ActivityOptions options = ActivityOptions.makeCustomAnimation(itemView.getContext(), R.anim.anim_right_to_left, R.anim.anim_stay_put);
-                    itemView.getContext().startActivity(intentCreatePlant, options.toBundle());
+                    ActivityOptions animOptions = ActivityOptions.makeCustomAnimation(itemView.getContext(), R.anim.anim_right_to_left, R.anim.anim_stay_put);
+                    itemView.getContext().startActivity(intentCreatePlant, animOptions.toBundle());
                 }
             });
 
