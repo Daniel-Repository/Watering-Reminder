@@ -1,12 +1,15 @@
 package com.example.plantsneedwater;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.plantsneedwater.R;
 import com.google.android.material.button.MaterialButton;
@@ -52,8 +55,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.plantImage.setImageBitmap(pImg);
         }
 
+
+
         holder.plantName.setText(pName);
-        holder.plantLastWatered.setText(pLastWatered);
+//        holder.plantLastWatered.setText(pLastWatered);
         holder.plantNextWater.setText(pNextWater);
     }
 
@@ -70,24 +75,39 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView plantLastWatered;
         TextView plantNextWater;
 
+
         ViewHolder(View itemView) {
             super(itemView);
             plantImage = itemView.findViewById(R.id.plantImage);
             plantName = itemView.findViewById(R.id.plantName);
-            plantLastWatered = itemView.findViewById(R.id.plantLastWatered);
+//            plantLastWatered = itemView.findViewById(R.id.plantLastWatered);
             plantNextWater = itemView.findViewById(R.id.plantNextWater);
             itemView.setOnClickListener(this);
 
-            itemView.findViewById(R.id.btnWaterPlant).setOnClickListener(new View.OnClickListener() {
+            //Click listener for the Water Plant Button
+//            itemView.findViewById(R.id.btnWaterPlant).setOnClickListener(new View.OnClickListener() {
+//                @RequiresApi(api = Build.VERSION_CODES.O)
+//                @Override
+//                public void onClick(View v) {
+//                    int pos = getAdapterPosition();
+//                    Plant plant = mData.get(pos);
+//                    plant.waterPlant();
+//                    notifyDataSetChanged();
+//                }
+//            });
+
+            //When click on the RV item
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     Plant plant = mData.get(pos);
-                    plant.waterPlant();
-                    notifyDataSetChanged();
+                    Intent intentCreatePlant = new Intent(itemView.getContext(), PlantSingleView.class);
+                    itemView.getContext().startActivity(intentCreatePlant);
                 }
             });
+
         }
 
         @Override

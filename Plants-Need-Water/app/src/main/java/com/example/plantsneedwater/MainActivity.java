@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
@@ -27,7 +28,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity  {
 
     RecyclerViewAdapter adapter;
-    int recyclerColumns = 1; //How many columns of plants do we want displayed?
+
+    int recyclerColumns = 2; //How many columns of plants do we want displayed?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +44,15 @@ public class MainActivity extends AppCompatActivity  {
         myToolbar.setBackgroundColor(Color.parseColor("#FFFFFF"));
         myToolbar.showOverflowMenu();
         getSupportActionBar().setTitle("Planted ");
-        myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.addPlant:
-                        Intent intentCreatePlant = new Intent(getApplicationContext(), CreatePlant.class);
-                        startActivity(intentCreatePlant);
-                        break;
-                }
-                return true;
+
+        myToolbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.addPlant:
+                    Intent intentCreatePlant = new Intent(getApplicationContext(), CreatePlant.class);
+                    startActivity(intentCreatePlant);
+                    break;
             }
+            return true;
         });
     }
 
