@@ -1,6 +1,6 @@
 package com.example.plantsneedwater;
 
-import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,14 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.example.plantsneedwater.R;
-import com.google.android.material.button.MaterialButton;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.format.DateTimeFormatter;
@@ -104,7 +99,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     int pos = getAdapterPosition();
                     Plant plant = mData.get(pos);
                     Intent intentCreatePlant = new Intent(itemView.getContext(), PlantSingleView.class);
-                    itemView.getContext().startActivity(intentCreatePlant);
+                    ActivityOptions options = ActivityOptions.makeCustomAnimation(itemView.getContext(), R.anim.anim_right_to_left, R.anim.anim_stay_put);
+                    itemView.getContext().startActivity(intentCreatePlant, options.toBundle());
                 }
             });
 
