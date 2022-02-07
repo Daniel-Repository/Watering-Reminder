@@ -59,6 +59,8 @@ public class CreatePlant extends AppCompatActivity {
     Spinner spinPeriod;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    Uri resultUri;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,7 @@ public class CreatePlant extends AppCompatActivity {
         int day = cldr.get(Calendar.DAY_OF_MONTH);
         int month = cldr.get(Calendar.MONTH);
         int year = cldr.get(Calendar.YEAR);
+
         //Date picker dialog
         pickerDate = new DatePickerDialog(CreatePlant.this,
                 (view, year1, monthOfYear, dayOfMonth) -> etLastWateredDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1), year, month, day);
@@ -151,7 +154,9 @@ public class CreatePlant extends AppCompatActivity {
             String pName = etPlantName.getText().toString();
             Date calendarDate = cldr.getTime();
             String pLastWatered  = calendarDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-            Plant newPlant = new Plant(pName, imageBitmap, pLastWatered, getPeriodIncrement());
+
+            //Create plant object and adds it to array list
+            Plant newPlant = new Plant(pName, pLastWatered, getPeriodIncrement(), getUriString());
             PlantDataHolder.plantList.add(newPlant);
 
             //Save update to Shared Preferences
@@ -165,6 +170,20 @@ public class CreatePlant extends AppCompatActivity {
             Intent intentMainAct = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intentMainAct);
         }
+    }
+
+    //Checks if the URI is empty or not.
+    private String getUriString(){
+
+        String uriString;
+
+        if(resultUri == null){
+
+            uriString = "";
+        } else {
+            uriString = resultUri.toString();
+        }
+        return  uriString;
     }
 
     //Calculates the period to the next water in days
@@ -227,7 +246,7 @@ public class CreatePlant extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             try {
                 CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                Uri resultUri = result.getUri();
+                resultUri = result.getUri();
                 imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
                 ivPhoto.setImageBitmap(imageBitmap);
             } catch (Exception e) {

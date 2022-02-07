@@ -23,7 +23,7 @@ import java.util.Locale;
 public class Plant {
 
     private String plantName;
-    private Bitmap plantImage;
+
     private String plantLastWatered;
     private int plantPeriodIncrement;
     private Period plantNextWater;
@@ -31,18 +31,20 @@ public class Plant {
 
     private LocalDate plantLastWateredDate;
 
+    private String imgURI;
+
     LocalDate today = LocalDate.now();
 
     //Constructor
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Plant(String pName, Bitmap pImage, String pLastW, int pPeriodIncrement) {
+    public Plant(String pName, String pLastW, int pPeriodIncrement, String imgURI) {
         setPlantName(pName);
-        setPlantImage(pImage);
         setPlantLastWatered(pLastW);
         setPlantPeriodIncrement(pPeriodIncrement);
 
-        setPlantLastWateredDate();
+        setImgURI(imgURI);
 
+        setPlantLastWateredDate();
         setPlantNextWater(Period.between(today, plantLastWateredDate.plusDays(pPeriodIncrement)));
         setPlantNextWaterString(plantNextWater);
     }
@@ -52,7 +54,7 @@ public class Plant {
     //Getters
     public String getPlantName() { return plantName; }
 
-    public Bitmap getPlantImage() { return plantImage; }
+
 
     public String getPlantLastWatered() { return plantLastWatered; }
 
@@ -66,16 +68,20 @@ public class Plant {
         return plantLastWateredDate;
     }
 
+    public String getImgURI() {return imgURI;}
+
     //Setters
     public void setPlantName(String plantName) { this.plantName = plantName; }
 
-    public void setPlantImage(Bitmap plantImage) { this.plantImage = plantImage; }
+
 
     public void setPlantLastWatered(String plantLastWatered) { this.plantLastWatered = plantLastWatered; }
 
     public void setPlantPeriodIncrement(int plantPeriodIncrement) { this.plantPeriodIncrement = plantPeriodIncrement; }
 
     public void setPlantNextWater(Period plantNextWater) { this.plantNextWater = plantNextWater; }
+
+    public void setImgURI(String imgURI) {this.imgURI = imgURI;}
 
     public void setPlantNextWaterString(Period plantNextWater) {
 

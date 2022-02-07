@@ -4,7 +4,9 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,10 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textview.MaterialTextView;
+import com.squareup.picasso.Picasso;
+
+import java.net.URI;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -40,17 +46,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Bitmap pImg = mData.get(position).getPlantImage();
+
+        Uri test = Uri.parse(mData.get(position).getImgURI());
+
         String pName = mData.get(position).getPlantName();
         mData.get(position).setPlantLastWateredDate();
         String pLastWatered = "Last watered on the " + mData.get(position).getPlantLastWateredDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
         String pNextWater = mData.get(position).getPlantNextWaterString();
 
-        if(pImg != null) {
-            holder.plantImage.setImageBitmap(pImg);
+        if(!test.toString().equals("")) {
+            Picasso.get().load(test).into(holder.plantImage);
         }
-
-
 
         holder.plantName.setText(pName);
 //        holder.plantLastWatered.setText(pLastWatered);
@@ -69,7 +75,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView plantName;
         TextView plantLastWatered;
         TextView plantNextWater;
-
 
         ViewHolder(View itemView) {
             super(itemView);
