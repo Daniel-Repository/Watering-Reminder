@@ -59,7 +59,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.plantName.setText(pName);
-//        holder.plantLastWatered.setText(pLastWatered);
         holder.plantNextWater.setText(pNextWater);
     }
 
@@ -78,35 +77,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         ViewHolder(View itemView) {
             super(itemView);
+
             plantImage = itemView.findViewById(R.id.plantImage);
             plantName = itemView.findViewById(R.id.plantName);
-//            plantLastWatered = itemView.findViewById(R.id.plantLastWatered);
             plantNextWater = itemView.findViewById(R.id.plantNextWater);
             itemView.setOnClickListener(this);
 
-            //Click listener for the Water Plant Button
-//            itemView.findViewById(R.id.btnWaterPlant).setOnClickListener(new View.OnClickListener() {
-//                @RequiresApi(api = Build.VERSION_CODES.O)
-//                @Override
-//                public void onClick(View v) {
-//                    int pos = getAdapterPosition();
-//                    Plant plant = mData.get(pos);
-//                    plant.waterPlant();
-//                    notifyDataSetChanged();
-//                }
-//            });
-
             //When click on the RV item
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.O)
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    Plant plant = mData.get(pos);
-                    Intent intentCreatePlant = new Intent(itemView.getContext(), PlantSingleView.class);
-                    ActivityOptions animOptions = ActivityOptions.makeCustomAnimation(itemView.getContext(), R.anim.anim_right_to_left, R.anim.anim_stay_put);
-                    itemView.getContext().startActivity(intentCreatePlant, animOptions.toBundle());
-                }
+            itemView.setOnClickListener(v -> {
+
+                int pos = getAdapterPosition();
+
+                Intent intentCreatePlant = new Intent(itemView.getContext(), PlantSingleView.class);
+                intentCreatePlant.putExtra("plantPos", pos);
+                ActivityOptions animOptions = ActivityOptions.makeCustomAnimation(itemView.getContext(), R.anim.anim_right_to_left, R.anim.anim_stay_put);
+
+                itemView.getContext().startActivity(intentCreatePlant, animOptions.toBundle());
             });
 
         }

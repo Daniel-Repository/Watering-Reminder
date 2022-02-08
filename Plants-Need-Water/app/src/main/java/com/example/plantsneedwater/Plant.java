@@ -41,7 +41,6 @@ public class Plant {
         setPlantName(pName);
         setPlantLastWatered(pLastW);
         setPlantPeriodIncrement(pPeriodIncrement);
-
         setImgURI(imgURI);
 
         setPlantLastWateredDate();
@@ -53,8 +52,6 @@ public class Plant {
 
     //Getters
     public String getPlantName() { return plantName; }
-
-
 
     public String getPlantLastWatered() { return plantLastWatered; }
 
@@ -72,8 +69,6 @@ public class Plant {
 
     //Setters
     public void setPlantName(String plantName) { this.plantName = plantName; }
-
-
 
     public void setPlantLastWatered(String plantLastWatered) { this.plantLastWatered = plantLastWatered; }
 
