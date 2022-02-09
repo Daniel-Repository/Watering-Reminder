@@ -40,6 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_item, parent, false);
         return new ViewHolder(view);
+
     }
 
     //Binds the data to the component in each row
@@ -51,7 +52,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         String pName = mData.get(position).getPlantName();
         mData.get(position).setPlantLastWateredDate();
-        String pLastWatered = "Last watered on the " + mData.get(position).getPlantLastWateredDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
         String pNextWater = mData.get(position).getPlantNextWaterString();
 
         if(!test.toString().equals("")) {
@@ -60,6 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.plantName.setText(pName);
         holder.plantNextWater.setText(pNextWater);
+
     }
 
     //Total number of rows
@@ -72,7 +73,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView plantImage;
         TextView plantName;
-        TextView plantLastWatered;
         TextView plantNextWater;
 
         ViewHolder(View itemView) {
@@ -85,7 +85,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             //When click on the RV item
             itemView.setOnClickListener(v -> {
-
                 int pos = getAdapterPosition();
 
                 Intent intentCreatePlant = new Intent(itemView.getContext(), PlantSingleView.class);
@@ -94,6 +93,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 itemView.getContext().startActivity(intentCreatePlant, animOptions.toBundle());
             });
+
 
         }
 

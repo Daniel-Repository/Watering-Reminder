@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:paddingTop="16dp">
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
@@ -53,7 +53,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Freddy"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:textAppearance="?attr/textAppearanceHeadline4"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/plantSingleNextWater"
@@ -86,12 +88,12 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnWaterPlant"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_margin="2dp"
                             android:layout_gravity="center"
                             app:icon="@drawable/water_1_"
-                            app:iconSize="38dp"
+                            app:iconSize="42dp"
                             app:iconPadding="0dp"
                             app:iconGravity="textStart"
                             app:iconTint="@color/white"
@@ -111,8 +113,8 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnEditPlant"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_margin="2dp"
                             android:layout_gravity="center"
                             app:icon="@drawable/ic_baseline_edit_24"

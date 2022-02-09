@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +16,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.time.format.DateTimeFormatter;
@@ -26,6 +29,7 @@ public class PlantSingleView extends AppCompatActivity {
     TextView plantName;
     TextView plantNextWater;
     TextView plantLastWater;
+    MaterialButton btnWaterPlant;
     int arrPos;
     private List<Plant> mData;
     Plant plant;
@@ -40,6 +44,7 @@ public class PlantSingleView extends AppCompatActivity {
         plantName = findViewById(R.id.plantSingleName);
         plantNextWater = findViewById(R.id.plantSingleNextWater);
         plantLastWater = findViewById(R.id.plantSingleLastWatered);
+        btnWaterPlant = findViewById(R.id.btnWaterPlant);
 
         //Get array position passed from RecyclerView selection
         Bundle extras = getIntent().getExtras();
@@ -60,8 +65,9 @@ public class PlantSingleView extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.backHome:
-                        Intent intentCreatePlant = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intentCreatePlant);
+                        Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                        intentMain.putExtra("plantPos", arrPos);
+                        startActivity(intentMain);
                         overridePendingTransition(R.anim.anim_stay_put, R.anim.anim_center_to_right);
                         break;
                 }
@@ -69,15 +75,31 @@ public class PlantSingleView extends AppCompatActivity {
             }
         });
 
+        //WATER PLANT BUTTON CLICK
+        btnWaterPlant.setOnClickListener(v -> {
+            plant.waterPlant();
+
+            //Save update to Shared Preferences
+            SharedPreferences sharedPref = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(PlantDataHolder.plantList);
+            editor.putString("plant list", json);
+            editor.apply();
+
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
+        });
+
     }
 
     //Display our plant details
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void displayPlantDetails(){
-
         mData = PlantDataHolder.plantList;
         plant = mData.get(arrPos);
-
         Uri test = Uri.parse(plant.getImgURI());
 
         if(!test.toString().equals("")) {
@@ -88,6 +110,7 @@ public class PlantSingleView extends AppCompatActivity {
         plantNextWater.setText(plant.getPlantNextWaterString());
         plantLastWater.setText("Last watered on the " + plant.getPlantLastWateredDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
