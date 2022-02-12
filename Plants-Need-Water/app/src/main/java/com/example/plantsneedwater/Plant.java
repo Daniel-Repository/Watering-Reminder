@@ -83,7 +83,11 @@ public class Plant {
         int months = plantNextWater.getMonths();
         int days = plantNextWater.getDays();
 
-        if (months == 0 && days >= 1) {
+
+        if (months == 0 && days == 1) {
+            plantNextWaterString = days + " Day until next water";
+        }
+        else if (months == 0 && days >= 1) {
             plantNextWaterString = days + " Days until next water";
         }
         else if (months == 1) {

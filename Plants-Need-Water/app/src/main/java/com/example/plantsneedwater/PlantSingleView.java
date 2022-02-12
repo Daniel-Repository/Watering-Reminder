@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -13,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,20 +77,32 @@ public class PlantSingleView extends AppCompatActivity {
 
         //WATER PLANT BUTTON CLICK
         btnWaterPlant.setOnClickListener(v -> {
-            plant.waterPlant();
 
-            //Save update to Shared Preferences
-            SharedPreferences sharedPref = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            Gson gson = new Gson();
-            String json = gson.toJson(PlantDataHolder.plantList);
-            editor.putString("plant list", json);
-            editor.apply();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            finish();
-            overridePendingTransition(0, 0);
-            startActivity(getIntent());
-            overridePendingTransition(0, 0);
+            builder.setTitle("Water Plant");
+            builder.setMessage("Are you sure you want to water this plant?");
+            builder.setCancelable(false);
+
+            //If the user selects "YES"
+            builder.setPositiveButton("Yes", (dialog, which) -> {
+                waterPlant();
+            });
+
+            //If the user selects "NO"
+            builder.setNegativeButton("No", (dialog, which) -> {
+                dialog.cancel();
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+            Button posButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            posButton.setBackgroundColor(Color.TRANSPARENT);
+
+            Button negButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+            negButton.setBackgroundColor(Color.TRANSPARENT);
+
         });
 
     }
@@ -113,5 +128,22 @@ public class PlantSingleView extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.single_plant_view_app_bar, menu);
         return true;
+    }
+
+    private void waterPlant(){
+        plant.waterPlant();
+
+        //Save update to Shared Preferences
+        SharedPreferences sharedPref = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(PlantDataHolder.plantList);
+        editor.putString("plant list", json);
+        editor.apply();
+
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 }
