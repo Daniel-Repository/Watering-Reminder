@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputType;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -89,18 +93,25 @@ public class CreatePlant extends AppCompatActivity {
             openDatePicker();
         });
 
-        //WHEN THE SAVE BUTTON (IN HEADER) IS SELECTED
-        ImageButton ibSave = findViewById(R.id.ibSave);
-        ibSave.setOnClickListener(v -> {
-            savePlant();
+        //APP BAR
+        Toolbar createPlantToolbar = findViewById(R.id.createPlantToolbar);
+        setSupportActionBar(createPlantToolbar);
+        createPlantToolbar.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        createPlantToolbar.setNavigationIcon(R.drawable.ic_baseline_check_24);
+        createPlantToolbar.showOverflowMenu();
+        getSupportActionBar().setTitle("");
+
+        createPlantToolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.backHome) {
+                Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intentMain);
+                overridePendingTransition(R.anim.anim_stay_put, R.anim.anim_center_to_right);
+            }
+            return true;
         });
 
-        //WHEN THE CANCEL BUTTON (IN HEADER) IS SELECTED
-        ImageButton ibCancel = findViewById(R.id.ibCancel);
-        ibCancel.setOnClickListener(v -> {
-            Intent intentMainAct = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intentMainAct);
-            overridePendingTransition(R.anim.anim_stay_put, R.anim.anim_center_to_right);
+        createPlantToolbar.setNavigationOnClickListener(v ->{
+            savePlant();
         });
     }
 
@@ -270,6 +281,12 @@ public class CreatePlant extends AppCompatActivity {
 
         imageFilePath = image.getAbsolutePath();
         return image;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.create_plant_view_app_bar, menu);
+        return true;
     }
 
 }

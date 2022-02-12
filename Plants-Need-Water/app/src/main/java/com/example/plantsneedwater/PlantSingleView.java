@@ -60,19 +60,16 @@ public class PlantSingleView extends AppCompatActivity {
         singlePlantToolbar.showOverflowMenu();
         getSupportActionBar().setTitle("");
 
-        singlePlantToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.backHome:
-                        Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
-                        intentMain.putExtra("plantPos", arrPos);
-                        startActivity(intentMain);
-                        overridePendingTransition(R.anim.anim_stay_put, R.anim.anim_center_to_right);
-                        break;
-                }
-                return true;
+        singlePlantToolbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.backHome:
+                    Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                    intentMain.putExtra("plantPos", arrPos);
+                    startActivity(intentMain);
+                    overridePendingTransition(R.anim.anim_stay_put, R.anim.anim_center_to_right);
+                    break;
             }
+            return true;
         });
 
         //WATER PLANT BUTTON CLICK

@@ -7,52 +7,72 @@
     tools:context=".CreatePlant">
 
     <!-- Header (Cancel, Heading, Save) -->
-    <LinearLayout
-        android:id="@+id/llHeader"
+<!--    <LinearLayout-->
+<!--        android:id="@+id/llHeader"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        &lt;!&ndash; Cancel &ndash;&gt;-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/ibCancel"-->
+<!--            android:padding="8dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/ic_baseline_close_24"-->
+<!--            android:background="@color/transparent"-->
+<!--            android:tint="@color/black"/>-->
+
+<!--        &lt;!&ndash; Heading &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:text="@string/create_plant_heading"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+<!--        &lt;!&ndash; Save &ndash;&gt;-->
+<!--        <RelativeLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/ibSave"-->
+<!--                android:padding="8dp"-->
+<!--                android:background="@color/transparent"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_baseline_check_24"-->
+<!--                android:tint="@color/primaryDarkColor"/>-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </LinearLayout>-->
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Cancel -->
-        <ImageButton
-            android:id="@+id/ibCancel"
-            android:padding="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_close_24"
-            android:background="@color/transparent"
-            android:tint="@color/black"/>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/createPlantToolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:gravity="start"
+            android:layoutDirection="rtl"
+            app:menu="@menu/single_plant_view_app_bar" />
 
-        <!-- Heading -->
-        <TextView
-            android:text="@string/create_plant_heading"
-            android:layout_margin="8dp"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Save -->
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageButton
-                android:id="@+id/ibSave"
-                android:padding="8dp"
-                android:background="@color/transparent"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_check_24"
-                android:tint="@color/primaryDarkColor"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +80,7 @@
         android:layout_marginTop="64dp"
         android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/llHeader">
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
         <!-- Layout containing image views & inputs -->
         <LinearLayout
