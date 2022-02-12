@@ -52,6 +52,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         String pName = mData.get(position).getPlantName();
         mData.get(position).setPlantLastWateredDate();
+
+        mData.get(position).setPlantNextWaterString(mData.get(position).calculateNewPeriod());
+
         String pNextWater = mData.get(position).getPlantNextWaterString();
 
         if(!test.toString().equals("")) {

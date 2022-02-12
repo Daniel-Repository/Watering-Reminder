@@ -44,7 +44,7 @@ public class Plant {
         setImgURI(imgURI);
 
         setPlantLastWateredDate();
-        setPlantNextWater(Period.between(today, plantLastWateredDate.plusDays(pPeriodIncrement)));
+        setPlantNextWater(calculateNewPeriod());
         setPlantNextWaterString(plantNextWater);
     }
 
@@ -108,6 +108,11 @@ public class Plant {
         setPlantLastWateredDate();
         setPlantNextWater(Period.between(LocalDate.now(), getPlantLastWateredDate().plusDays(plantPeriodIncrement)));
         setPlantNextWaterString(getPlantNextWater());
+    }
+
+    public Period calculateNewPeriod(){
+        Period p = Period.between(LocalDate.now(), plantLastWateredDate.plusDays(getPlantPeriodIncrement()));
+        return p;
     }
 
 }
