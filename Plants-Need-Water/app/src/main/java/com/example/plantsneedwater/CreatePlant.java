@@ -100,6 +100,7 @@ public class CreatePlant extends AppCompatActivity {
         ibCancel.setOnClickListener(v -> {
             Intent intentMainAct = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intentMainAct);
+            overridePendingTransition(R.anim.anim_stay_put, R.anim.anim_center_to_right);
         });
     }
 

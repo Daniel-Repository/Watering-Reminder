@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity  {
                 case R.id.addPlant:
                     Intent intentCreatePlant = new Intent(getApplicationContext(), CreatePlant.class);
                     startActivity(intentCreatePlant);
+                    overridePendingTransition(R.anim.anim_right_to_left, R.anim.anim_stay_put);
                     break;
             }
             return true;
